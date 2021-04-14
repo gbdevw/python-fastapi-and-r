@@ -3,7 +3,7 @@
 function(current_price, product){
   list(
         product = product,
-        current_price = current_price,
-        forecasted_price = current_price + 5*(current_price/100)
+        current_price = as.numeric(current_price),
+        forecasted_price = as.numeric(current_price) + 5.0*(as.numeric(current_price)/100.0)
   )
 }
