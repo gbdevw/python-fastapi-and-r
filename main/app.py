@@ -1,6 +1,8 @@
 import uuid
 import uvicorn
 
+from mangum import Mangum
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -61,6 +63,12 @@ app.add_middleware(PrincipalMiddleware)
 ###############################################################################
 
 app.include_router(crypto_controller.router, prefix=settings.application_root, tags=['crypto'])
+
+###############################################################################
+#   Handler for AWS Lambda                                                    #
+###############################################################################
+
+handler = Mangum(app)
 
 ###############################################################################
 #   Run the self contained application                                        #
