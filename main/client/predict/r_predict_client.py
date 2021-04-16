@@ -16,6 +16,14 @@ class RPredictClient(PredictClient):
             logging.error('RPredictClient returned ' + str(response.status_code))
             raise HTTPException(status_code=503, detail="Downstream service unavailable")
         return CryptoPredict(product, current_price, response.json()['forecasted_price'])
-        
 
-    
+    async def is_healthy (self) -> bool:
+        try:
+            response = requests.get(self.base_url + '/health')
+            if response.status_code != 200:
+                logging.error('R Health returned ' + str(response.status_code))
+                raise HTTPException(status_code=503, detail="Downstream service unavailable")
+            return True
+        except Exception as e:
+            logging.error('Error during downstream healthcheck')
+            raise HTTPException(status_code=503, detail="Downstream service unavailable")

@@ -7,6 +7,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from main.route import crypto_controller
+from main.route import health_controller
 from main.configuration.settings import settings
 from main.monitoring import logging_config
 from main.middleware.correlation_id_middleware import CorrelationIdMiddleware
@@ -63,6 +64,7 @@ app.add_middleware(PrincipalMiddleware)
 ###############################################################################
 
 app.include_router(crypto_controller.router, prefix=settings.application_root, tags=['crypto'])
+app.include_router(health_controller.router, prefix=settings.application_root, tags=['health'])
 
 ###############################################################################
 #   Handler for AWS Lambda                                                    #

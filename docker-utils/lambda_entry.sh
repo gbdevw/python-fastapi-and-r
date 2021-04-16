@@ -2,6 +2,7 @@
 
 # Start R sidecar
 Rscript ./r/main.r &
+sleep 2
 
 # Start Lambda RIE
 if [ -z "${AWS_LAMBDA_RUNTIME_API}" ]; then
