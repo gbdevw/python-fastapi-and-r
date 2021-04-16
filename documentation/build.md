@@ -25,3 +25,11 @@ docker build --target regular --tag crypto-sidecar-regular .
 ```
 docker build --target lambda --tag crypto-sidecar-lambda .
 ```
+
+### Push the container on AWS ECR
+
+```
+aws ecr get-login-password --region <account-region> | docker login --username AWS --password-stdin <account-id>.dkr.ecr.<account-region>.amazonaws.com
+docker tag crypto-sidecar-lambda:latest <account-id>.dkr.ecr.<account-region>.amazonaws.com/<repo>:<tag>
+docker push <account-id>.dkr.ecr.<account-region>.amazonaws.com/<repo>:<tag>
+```
